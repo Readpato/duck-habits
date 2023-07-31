@@ -1,5 +1,80 @@
+import { useEffect, useState, MouseEvent } from 'react'
+
+interface Date {
+  days: number
+  month: string
+  year: number
+}
+
+interface Month {
+  days: number
+  id: number
+  name: string
+}
+
 function App() {
-  return <h1>Duck habits</h1>
+  const [date, setDate] = useState<Date | null>(null)
+  const [newHabit, setNewHabit] = useState<string | null>(null)
+  const [habits, setHabits] = useState<string[]>([])
+
+  const getTime = () => {
+    const months: Month[] = [
+      { id: 0, name: 'January', days: 31 },
+      { id: 1, name: 'February', days: 28 },
+      { id: 2, name: 'March', days: 31 },
+      { id: 3, name: 'April', days: 30 },
+      { id: 4, name: 'May', days: 31 },
+      { id: 5, name: 'June', days: 30 },
+      { id: 6, name: 'July', days: 31 },
+      { id: 7, name: 'August', days: 31 },
+      { id: 8, name: 'September', days: 30 },
+      { id: 9, name: 'October', days: 31 },
+      { id: 10, name: 'November', days: 30 },
+      { id: 11, name: 'December', days: 31 },
+    ]
+    const month = months.find(
+      (month) => month.id === new Date().getMonth()
+    ) as Month
+    const year = new Date().getFullYear()
+    setDate({ month: month.name, days: month.days, year })
+  }
+
+  const handleHabits = (event: MouseEvent<HTMLButtonElement>) => {
+    if (!newHabit) return
+    setHabits([...habits, newHabit])
+    event.preventDefault()
+  }
+
+  const habitList = habits.map((habit) => (
+    <ul>
+      <li>{habit}</li>
+    </ul>
+  ))
+
+  useEffect(() => {
+    getTime()
+  }, [])
+
+  return (
+    <main>
+      <h1>Duck habits</h1>
+      <p>
+        {date === null && 'Loading'}
+        {date !== null &&
+          `Year: ${date.year}, Month: ${date.month}, Days: ${date.days}`}
+      </p>
+      <form className="space-x-2">
+        <label htmlFor="new-habit">New habit:</label>
+        <input
+          id="new-habit"
+          onChange={(e) => setNewHabit(e.target.value)}
+          className="border-1 border-black"
+        />
+        <button onClick={handleHabits}>Add habit</button>
+      </form>
+      <section>{habitList}</section>
+    </main>
+  )
 }
 
 export default App
