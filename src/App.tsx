@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, MouseEvent } from 'react'
 
 interface Date {
   days: number
@@ -14,6 +14,9 @@ interface Month {
 
 function App() {
   const [date, setDate] = useState<Date | null>(null)
+  const [newHabit, setNewHabit] = useState<string | null>(null)
+  const [habits, setHabits] = useState<string[]>([])
+
   const getTime = () => {
     const months: Month[] = [
       { id: 0, name: 'January', days: 31 },
@@ -36,6 +39,18 @@ function App() {
     setDate({ month: month.name, days: month.days, year })
   }
 
+  const handleHabits = (event: MouseEvent<HTMLButtonElement>) => {
+    if (!newHabit) return
+    setHabits([...habits, newHabit])
+    event.preventDefault()
+  }
+
+  const habitList = habits.map((habit) => (
+    <ul>
+      <li>{habit}</li>
+    </ul>
+  ))
+
   useEffect(() => {
     getTime()
   }, [])
@@ -43,12 +58,21 @@ function App() {
   return (
     <main>
       <h1>Duck habits</h1>
-      <button onClick={getTime}>Click me</button>
       <p>
         {date === null && 'Loading'}
         {date !== null &&
           `Year: ${date.year}, Month: ${date.month}, Days: ${date.days}`}
       </p>
+      <form className="space-x-2">
+        <label htmlFor="new-habit">New habit:</label>
+        <input
+          id="new-habit"
+          onChange={(e) => setNewHabit(e.target.value)}
+          className="border-1 border-black"
+        />
+        <button onClick={handleHabits}>Add habit</button>
+      </form>
+      <section>{habitList}</section>
     </main>
   )
 }
