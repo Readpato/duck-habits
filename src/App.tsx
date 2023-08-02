@@ -1,4 +1,5 @@
 import { useEffect, useState, MouseEvent } from 'react'
+import HabitList from './components/HabitsList'
 
 interface Date {
   days: number
@@ -12,7 +13,7 @@ interface Month {
   name: string
 }
 
-type Habit = {
+interface Habit {
   id: number
   text: string
 }
@@ -73,13 +74,7 @@ function App() {
         />
         <button onClick={handleHabits}>Add habit</button>
       </form>
-      <section>
-        <ul>
-          {habits.length > 0 &&
-            habits.map((habit) => <li key={habit.id}>{habit.text}</li>)}
-          {habits.length <= 0 && <li>No habit added yet!</li>}
-        </ul>
-      </section>
+      <HabitList habits={habits} days={date?.days} />
     </main>
   )
 }
