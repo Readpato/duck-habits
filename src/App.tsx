@@ -45,12 +45,6 @@ function App() {
     event.preventDefault()
   }
 
-  const habitList = habits.map((habit) => (
-    <ul>
-      <li>{habit}</li>
-    </ul>
-  ))
-
   useEffect(() => {
     getTime()
   }, [])
@@ -72,7 +66,13 @@ function App() {
         />
         <button onClick={handleHabits}>Add habit</button>
       </form>
-      <section>{habitList}</section>
+      <section>
+        {habits.map((habit) => (
+          <ul>
+            <li>{habit}</li>
+          </ul>
+        ))}
+      </section>
     </main>
   )
 }
