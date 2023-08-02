@@ -12,10 +12,15 @@ interface Month {
   name: string
 }
 
+type Habit = {
+  id: number
+  text: string
+}
 function App() {
+  const [habitKey, setHabitKey] = useState(0)
   const [date, setDate] = useState<Date | null>(null)
   const [newHabit, setNewHabit] = useState<string | null>(null)
-  const [habits, setHabits] = useState<string[]>([])
+  const [habits, setHabits] = useState<Habit[]>([])
 
   const getTime = () => {
     const months: Month[] = [
@@ -41,7 +46,9 @@ function App() {
 
   const handleHabits = (event: MouseEvent<HTMLButtonElement>) => {
     if (!newHabit) return
-    setHabits([...habits, newHabit])
+    const habit = { id: habitKey, text: newHabit }
+    setHabits([...habits, habit])
+    setHabitKey(habitKey + 1)
     event.preventDefault()
   }
 
@@ -67,11 +74,11 @@ function App() {
         <button onClick={handleHabits}>Add habit</button>
       </form>
       <section>
-        {habits.map((habit) => (
-          <ul>
-            <li>{habit}</li>
-          </ul>
-        ))}
+        <ul>
+          {habits.length > 0 &&
+            habits.map((habit) => <li key={habit.id}>{habit.text}</li>)}
+          {habits.length <= 0 && <li>No habit added yet!</li>}
+        </ul>
       </section>
     </main>
   )
