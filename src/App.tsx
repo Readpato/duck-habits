@@ -1,4 +1,5 @@
 import { useEffect, useState, MouseEvent } from 'react'
+import type { Habit } from './types'
 import HabitList from './components/HabitsList'
 
 interface Date {
@@ -13,10 +14,6 @@ interface Month {
   name: string
 }
 
-interface Habit {
-  id: number
-  text: string
-}
 function App() {
   const [habitKey, setHabitKey] = useState(0)
   const [date, setDate] = useState<Date | null>(null)
