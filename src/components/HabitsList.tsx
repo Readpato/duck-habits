@@ -1,9 +1,13 @@
 import type { Habit as HabitType } from '../types'
-import Habit from './Habit'
 
 interface HabitsListProps {
   habits: HabitType[]
   days?: number
+}
+
+interface HabitProp {
+  text: string
+  days: number
 }
 
 export default function HabitList({ habits, days }: HabitsListProps) {
@@ -20,5 +24,14 @@ export default function HabitList({ habits, days }: HabitsListProps) {
     <section>
       <ul>{list()}</ul>
     </section>
+  )
+}
+
+function Habit({ text, days }: HabitProp) {
+  return (
+    <li>
+      <p>{text}</p>
+      <p>{days}</p>
+    </li>
   )
 }
