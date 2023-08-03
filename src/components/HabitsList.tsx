@@ -48,7 +48,7 @@ function HabitButton({ day }: ButtonProp) {
   return (
     <button
       className={`mr-2 ${clicked ? 'text-green-500' : 'text-black'}`}
-      onClick={() => setClicked(true)}
+      onClick={() => (clicked ? setClicked(false) : setClicked(true))}
     >
       {day}
     </button>
