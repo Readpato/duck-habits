@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { Habit as HabitType } from '../types'
 
 interface HabitsListProps {
@@ -8,6 +9,10 @@ interface HabitsListProps {
 interface HabitProp {
   text: string
   days: number
+}
+
+interface ButtonProp {
+  day: number
 }
 
 export default function HabitList({ habits, days }: HabitsListProps) {
@@ -31,10 +36,21 @@ function Habit({ text, days }: HabitProp) {
     <li>
       <p>{text}</p>
       {Array.from(Array(days).keys(), (index) => (
-        <button className="mr-2" key={index}>
-          {index + 1}
-        </button>
+        <HabitButton key={index} day={index + 1} />
       ))}
     </li>
+  )
+}
+
+function HabitButton({ day }: ButtonProp) {
+  const [clicked, setClicked] = useState(false)
+
+  return (
+    <button
+      className={`mr-2 ${clicked ? 'text-green-500' : 'text-black'}`}
+      onClick={() => setClicked(true)}
+    >
+      {day}
+    </button>
   )
 }
