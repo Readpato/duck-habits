@@ -42,7 +42,7 @@ function App() {
     setDate({ month: month.name, days: month.days, year })
   }
 
-  const handleHabits = (event: MouseEvent<HTMLButtonElement>) => {
+  const handleAddHabit = (event: MouseEvent<HTMLButtonElement>) => {
     if (!newHabit) return
     const habit = { id: habitKey, text: newHabit }
     setHabits([...habits, habit])
@@ -69,7 +69,7 @@ function App() {
           onChange={(e) => setNewHabit(e.target.value)}
           className="border-1 border-black"
         />
-        <button onClick={handleHabits}>Add habit</button>
+        <button onClick={handleAddHabit}>Add habit</button>
       </form>
       <HabitList habits={habits} days={date?.days} />
     </main>
