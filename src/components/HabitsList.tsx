@@ -3,7 +3,7 @@ import type { Habit as HabitType } from '../types'
 
 interface HabitsListProps {
   habits: HabitType[]
-  days?: number
+  days: number
 }
 
 interface HabitProp {
@@ -21,7 +21,7 @@ export default function HabitList({ habits, days }: HabitsListProps) {
       <ul>
         {habits.length > 0 ? (
           habits.map((habit) => (
-            <Habit key={habit.id} text={habit.text} days={days as number} />
+            <Habit key={habit.id} text={habit.text} days={days} />
           ))
         ) : (
           <li>No habit added yet!</li>
