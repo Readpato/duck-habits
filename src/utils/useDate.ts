@@ -1,13 +1,10 @@
+import { Month } from '../types'
+
 interface DateValues {
   currentMonth: Month
   currentYear: number
   totalMonths: Month[]
   totalYears: number[]
-}
-interface Month {
-  days: number
-  id: number
-  name: string
 }
 
 const months: Month[] = [
