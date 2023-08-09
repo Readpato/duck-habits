@@ -22,9 +22,8 @@ const months: Month[] = [
   { id: 11, name: 'December', days: 31 },
 ]
 
-export function useDate(): DateValues {
+export function useDate(initialYear: number): DateValues {
   const getTotalYears = () => {
-    const initialYear = 2023
     const yearsPassed = new Date().getFullYear() - initialYear
     const yearsArray = [initialYear]
     for (let i = 1; i <= yearsPassed; i++) {
